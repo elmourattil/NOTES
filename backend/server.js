@@ -13,9 +13,12 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connecté"))
-  .catch((err) => console.error("Erreur MongoDB:", err));
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log("MongoDB Atlas connecté avec succès"))
+  .catch((err) => console.error("Erreur de connexion MongoDB Atlas:", err));
 
 const studentRoutes = require("./routes/student");
 const adminRoutes = require("./routes/admin");
